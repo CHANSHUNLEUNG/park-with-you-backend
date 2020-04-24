@@ -18,6 +18,6 @@ public class ParkingLotService {
 
 
 	public List<ParkingLot> getAllParkingLots() {
-		return parkingLotRepository.getAll();
+		return parkingLotRepository.findAll();
 	}
 }
