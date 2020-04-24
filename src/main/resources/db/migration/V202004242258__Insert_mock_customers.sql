@@ -37,4 +37,4 @@ VALUES (
 	"Veronica"
 	,"veronica"
 	,"321-456-987"
-	)
+	);
