@@ -29,6 +29,10 @@ public class ParkingLotRepository {
 		}
 	}
 
+	public ParkingLotRepository(JdbcTemplate jdbcTemplate){
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
 	public List<ParkingLot> findAll() {
 		final String sql = "select * from parking_lot";
 		return jdbcTemplate.query(sql, new ParkingLotRowMapper());

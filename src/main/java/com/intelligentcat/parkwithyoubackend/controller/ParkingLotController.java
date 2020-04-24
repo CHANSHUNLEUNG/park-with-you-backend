@@ -25,6 +25,7 @@ public class ParkingLotController {
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<ParkingLot> getAllParkingLots() {
+		System.out.println(parkingLotService.getAllParkingLots());
 		return parkingLotService.getAllParkingLots();
 	}
 }
