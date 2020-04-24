@@ -1,6 +1,5 @@
 package com.intelligentcat.parkwithyoubackend.repository;
 
-import com.intelligentcat.parkwithyoubackend.model.Customer;
 import com.intelligentcat.parkwithyoubackend.model.ParkingLot;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -36,5 +35,16 @@ public class ParkingLotRepository {
 	public List<ParkingLot> findAll() {
 		final String sql = "select * from parking_lot";
 		return jdbcTemplate.query(sql, new ParkingLotRowMapper());
+	}
+
+	public boolean deductAvailableCountById(String parkingLotId){
+		final String sql = "update parking_lot set available_count=available_count-1 where id=?;";
+		try{
+			jdbcTemplate.update(sql, new Object[]{parkingLotId});
+		}
+		catch(Exception e){
+			return false;
+		}
+		return true;
 	}
 }
