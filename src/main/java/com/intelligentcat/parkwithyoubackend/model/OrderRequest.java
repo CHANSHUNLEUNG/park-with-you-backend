@@ -9,4 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderRequest {
     private Integer customerId;
+    private Long startTime;
+    private Integer duration;
 }
