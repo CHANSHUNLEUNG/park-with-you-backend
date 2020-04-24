@@ -7,7 +7,7 @@ node {
     stage('Deploy') {
         sh 'docker container ls -a -fname=springboot-dev -q | xargs -r docker container rm --force'
         sh 'docker run --rm -d -p 9300:9300 --network=tatp --name springboot-dev tatp-springboot-backend'
-        sh 'docker system prune'
+        sh 'docker system prune -f'
     }
   }
   catch (err) {
