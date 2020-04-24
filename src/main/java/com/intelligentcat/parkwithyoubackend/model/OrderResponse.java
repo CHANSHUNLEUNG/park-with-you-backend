@@ -4,15 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderResponse {
-    Long timeStamp;
+    Timestamp timeStamp;
     Integer orderId;
     Integer customerId;
     String parkingLotName;
     String parkingPlaceName;
-    Long startTime;
-    Long endTime;
+    Timestamp startTime;
+    Timestamp endTime;
 }

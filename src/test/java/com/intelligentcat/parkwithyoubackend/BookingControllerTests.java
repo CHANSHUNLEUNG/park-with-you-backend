@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 
 @SpringBootTest
@@ -27,7 +30,8 @@ public class BookingControllerTests {
 
     @Test
     public void should_get_receipt_when_sent_booking_request(){
-        OrderRequest orderRequest = new OrderRequest(12312, new Long(12312), 3600);
+        OrderRequest orderRequest;
+        orderRequest = new OrderRequest(12312, new Timestamp(new Date().getTime()), 3600);
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(orderRequest)
                 .when()
