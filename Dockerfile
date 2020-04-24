@@ -8,7 +8,7 @@ COPY oocl-maven-settings.xml /build
 #Copy source code
 COPY src /build/src
 # Build application
-RUN mvn package -Dspring.cloud.contract.verifier.skip=true -s oocl-maven-settings.xml
+RUN mvn package -s oocl-maven-settings.xml
 
 #Run the application
 FROM openjdk:8-jdk-alpine
