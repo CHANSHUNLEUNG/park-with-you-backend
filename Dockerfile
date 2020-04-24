@@ -12,5 +12,5 @@ RUN mvn package -s oocl-maven-settings.xml
 
 #Run the application
 FROM openjdk:8-jdk-alpine
-COPY --from=builder /build/target/*.jar app.jar
+COPY --from=builder /build/target/parking-lot-application.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar","--server.port=9300"]
