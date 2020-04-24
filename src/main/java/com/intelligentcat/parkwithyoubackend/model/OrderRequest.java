@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderRequest {
-    private String customerId;
+    private Integer customerId;
 }
