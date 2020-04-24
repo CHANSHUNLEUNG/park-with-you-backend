@@ -1,4 +1,5 @@
 node {
+    checkout scm
   try {
     stage('Build docker image') {
         sh 'docker build -t tatp-springboot-backend --build-arg http_proxy=http://hklxdv47:20101 --build-arg https_proxy=http://hklxdv47:20101 .'
