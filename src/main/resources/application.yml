@@ -1,2 +1,13 @@
 server:
   port: 8080
+spring:
+  datasource:
+    url: jdbc:mysql://hk3cvdv00648:5678/dev
+    username: root
+    password: ZhaoYuNumber1
+  http:
+    encoding:
+      force: true
+  jpa:
+    hibernate:
+      ddl-auto: none
