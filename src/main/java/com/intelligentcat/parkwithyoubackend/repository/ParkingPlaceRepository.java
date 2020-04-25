@@ -28,7 +28,7 @@ public class ParkingPlaceRepository {
     }
 
     public boolean markParkingPlaceAsUnavailable(Integer parkingLotId, Integer parkingPlaceId){
-        final String sql = "update parking_lot set status='unavailable' where id=? and parking_lot_id=?;";
+        final String sql = "update parking_place set status='unavailable' where id=? and parking_lot_id=?;";
         try {
             jdbcTemplate.update(sql, new Object[] {parkingPlaceId, parkingLotId});
         }
