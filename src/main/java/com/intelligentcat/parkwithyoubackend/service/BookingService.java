@@ -1,34 +1,47 @@
 package com.intelligentcat.parkwithyoubackend.service;
 
-import com.intelligentcat.parkwithyoubackend.model.Customer;
 import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
 import com.intelligentcat.parkwithyoubackend.model.OrderResponse;
 import com.intelligentcat.parkwithyoubackend.model.ParkingPlace;
 import com.intelligentcat.parkwithyoubackend.repository.CustomerRepository;
+import com.intelligentcat.parkwithyoubackend.repository.OrderRepository;
+import com.intelligentcat.parkwithyoubackend.repository.ParkingLotRepository;
 import com.intelligentcat.parkwithyoubackend.repository.ParkingPlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 public class BookingService {
     private CustomerRepository customerRepository;
+    private ParkingLotRepository parkingLotRepository;
     private ParkingPlaceRepository parkingPlaceRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
     public BookingService(CustomerRepository customerRepository,
-                          ParkingPlaceRepository parkingPlaceRepository){
+                          ParkingLotRepository parkingLotRepository,
+                          ParkingPlaceRepository parkingPlaceRepository,
+                          OrderRepository orderRepository){
         this.customerRepository = customerRepository;
+        this.parkingLotRepository = parkingLotRepository;
         this.parkingPlaceRepository = parkingPlaceRepository;
+        this.orderRepository = orderRepository;
     }
 
     public OrderResponse addNewBooking(Integer parkingLotId, OrderRequest orderRequest){
-        List<Customer> customerList = customerRepository.getAllCustomer();
+        String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
+
         ParkingPlace nextAvailablePlace = parkingPlaceRepository.getNextAvailableParkingPlace(parkingLotId);
-        System.out.println(nextAvailablePlace.toString());
 
+        parkingLotRepository.deductAvailableCountById(parkingLotId);
 
-        return new OrderResponse();
+        parkingPlaceRepository.markParkingPlaceAsUnavailable(parkingLotId, nextAvailablePlace.getId());
+
+        OrderResponse orderResponse =  orderRepository.createNewOrder(now, nextAvailablePlace, orderRequest);
+
+        return orderResponse;
     }
 }
