@@ -31,7 +31,7 @@ public class BookingControllerTests {
     @Test
     public void should_get_receipt_when_sent_booking_request(){
         OrderRequest orderRequest;
-        orderRequest = new OrderRequest(12312, new Timestamp(new Date().getTime()), 3600);
+        orderRequest = new OrderRequest(12312, "2020-04-26 23:00:00", 3600);
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(orderRequest)
                 .when()
