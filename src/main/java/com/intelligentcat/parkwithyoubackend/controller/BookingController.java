@@ -19,7 +19,6 @@ public class BookingController {
     @PostMapping
     public OrderResponse addNewBooking(@PathVariable("parkingLotId") Integer parkingLotId,
                                        @RequestBody OrderRequest orderRequest) {
-        System.out.println(String.format("%s - %s", parkingLotId, orderRequest.getCustomerId()));
         return bookingService.addNewBooking(parkingLotId, orderRequest);
     }
 }
