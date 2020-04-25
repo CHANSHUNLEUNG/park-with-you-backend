@@ -37,7 +37,7 @@ public class ParkingLotRepository {
 		return jdbcTemplate.query(sql, new ParkingLotRowMapper());
 	}
 
-	public boolean deductAvailableCountById(String parkingLotId){
+	public boolean deductAvailableCountById(Integer parkingLotId){
 		final String sql = "update parking_lot set available_count=available_count-1 where id=?;";
 		try{
 			jdbcTemplate.update(sql, new Object[]{parkingLotId});
