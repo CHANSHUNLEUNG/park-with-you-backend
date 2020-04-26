@@ -13,9 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 
 @SpringBootTest
@@ -31,11 +28,11 @@ public class BookingControllerTests {
     @Test
     public void should_get_receipt_when_sent_booking_request(){
         OrderRequest orderRequest;
-        orderRequest = new OrderRequest(12312, "2020-04-26 23:00:00", 3600);
+        orderRequest = new OrderRequest(1, "2020-04-26 23:00:00", 3600);
         MockMvcResponse response = given().contentType(ContentType.JSON)
                 .body(orderRequest)
                 .when()
-                .post("/parking-lots/123/booking");
+                .post("/parking-lots/1/booking");
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
     }
 }

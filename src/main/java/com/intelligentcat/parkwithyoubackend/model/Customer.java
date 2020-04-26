@@ -11,5 +11,5 @@ public class Customer {
     Integer id;
     String name;
     String password;
-    String bankAccount;
+    String bank_account;
 }
