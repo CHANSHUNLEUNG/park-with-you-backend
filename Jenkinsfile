@@ -4,7 +4,7 @@ pipeline {
     MAVEN_OPTS = '-Dhttp.proxyHost=hklxdv47 -Dhttp.proxyPort=20101 -Dhttps.proxyHost=hklxdv47 -Dhttps.proxyPort=20101'
   }
   stages {
-    stage('Build docker image') {
+    stage('Build') {
       steps{
         checkout scm
         sh 'pwd'
@@ -13,7 +13,7 @@ pipeline {
         sh 'docker build -t tatp-springboot-backend --build-arg http_proxy=http://hklxdv47:20101 --build-arg https_proxy=http://hklxdv47:20101 .'
       }
     }
-    stage('test'){
+    stage('Test'){
       steps{
         sh './mvnw test'
       }
