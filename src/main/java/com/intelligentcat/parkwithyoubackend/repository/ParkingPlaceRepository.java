@@ -1,8 +1,11 @@
 package com.intelligentcat.parkwithyoubackend.repository;
 
+import com.intelligentcat.parkwithyoubackend.exception.NoAvailablePlaceException;
 import com.intelligentcat.parkwithyoubackend.model.ParkingPlace;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class ParkingPlaceRepository {
@@ -14,17 +17,21 @@ public class ParkingPlaceRepository {
 
     public ParkingPlace getNextAvailableParkingPlace(Integer parkingLotId){
         final String sql = "select * from parking_place where parking_lot_id=? and status=\"available\" limit 1;";
-        ParkingPlace nextAvailablePlace = jdbcTemplate.queryForObject(
+        List<ParkingPlace> nextAvailablePlace = jdbcTemplate.query(
                 sql,
                 new Object[]{parkingLotId},
-                (response, rowNumber) ->
-                new ParkingPlace(
-                        response.getInt("id"),
-                        response.getString("name"),
-                        response.getInt("parking_lot_id"),
-                        response.getString("status")
-                ));
-        return nextAvailablePlace;
+                (response, rowNumber) ->{
+                    return new ParkingPlace(
+                            response.getInt("id"),
+                            response.getString("name"),
+                            response.getInt("parking_lot_id"),
+                            response.getString("status")
+                    );
+                });
+        if(nextAvailablePlace.size()==0){
+            throw new NoAvailablePlaceException();
+        }
+        return nextAvailablePlace.get(0);
     }
 
     public boolean markParkingPlaceAsUnavailable(Integer parkingLotId, Integer parkingPlaceId){
