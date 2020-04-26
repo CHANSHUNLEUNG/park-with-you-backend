@@ -1,7 +1,7 @@
 package com.intelligentcat.parkwithyoubackend.service;
 
 import com.intelligentcat.parkwithyoubackend.exception.InvalidAccountException;
-import com.intelligentcat.parkwithyoubackend.exception.InvalidPasswordException;
+import com.intelligentcat.parkwithyoubackend.exception.IncorrectPasswordException;
 import com.intelligentcat.parkwithyoubackend.model.Customer;
 import com.intelligentcat.parkwithyoubackend.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class CustomerService {
         }
         Customer targetCustomer = customers.get(0);
         if(!targetCustomer.getPassword().equals(password)){
-            throw new InvalidPasswordException();
+            throw new IncorrectPasswordException();
         }
         return;
     }
