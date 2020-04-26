@@ -12,7 +12,7 @@ public class BookingController {
     private BookingService bookingService;
 
     @Autowired
-    public BookingController(BookingService bookingService){
+    public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
 
