@@ -3,6 +3,7 @@ node {
   try {
     stage('Build docker image') {
       sh 'pwd'
+      sh 'chmod +x ./mvnw'
       sh './mvnw clean install -DskipTests -s oocl-maven-settings.xml'
       sh 'docker build -t tatp-springboot-backend --build-arg http_proxy=http://hklxdv47:20101 --build-arg https_proxy=http://hklxdv47:20101 .'
     }
