@@ -2,14 +2,13 @@ node {
     checkout scm
   try {
     stage('Build docker image') {
-      sh 'export MAVEN_OPTS="-Dhttp.proxyHost=hklxdv47 -Dhttp.proxyPort=20101 -Dhttps.proxyHost=hklxdv47 -Dhttps.proxyPort=20101"'
       sh 'pwd'
       sh 'chmod +x ./mvnw'
-      sh './mvnw clean install -DskipTests'
+      sh 'export MAVEN_OPTS="-Dhttp.proxyHost=hklxdv47 -Dhttp.proxyPort=20101 -Dhttps.proxyHost=hklxdv47 -Dhttps.proxyPort=20101" && ./mvnw clean install -DskipTests'
       sh 'docker build -t tatp-springboot-backend --build-arg http_proxy=http://hklxdv47:20101 --build-arg https_proxy=http://hklxdv47:20101 .'
     }
     state('test'){
-      sh './mvnw test'
+      sh 'export MAVEN_OPTS="-Dhttp.proxyHost=hklxdv47 -Dhttp.proxyPort=20101 -Dhttps.proxyHost=hklxdv47 -Dhttps.proxyPort=20101" && ./mvnw test'
     }
     stage('Deploy') {
       sh 'docker container ls -a -fname=springboot-dev -q | xargs -r docker container rm --force'
