@@ -13,7 +13,7 @@ pipeline {
         sh 'docker build -t tatp-springboot-backend --build-arg http_proxy=http://hklxdv47:20101 --build-arg https_proxy=http://hklxdv47:20101 .'
       }
     }
-    state('test'){
+    stage('test'){
       steps{
         sh './mvnw test'
       }
