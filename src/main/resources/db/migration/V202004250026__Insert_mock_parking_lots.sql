@@ -1,4 +1,4 @@
-INSERT INTO `dev`.`parking_lot` (
+INSERT INTO `parking_lot` (
 	`name`
 	,`address`
 	,`unit_price`
