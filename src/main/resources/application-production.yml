@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   datasource:
-    url: jdbc:mysql://hk3cvdv00649.oocl.com:5678/production
+    url: jdbc:mysql://hk3cvdv00649.oocl.com:5678/prod
     username: root
     password: IntelligentCat003
   http:
