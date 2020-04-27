@@ -4,7 +4,6 @@ pipeline {
     MAVEN_OPTS = '-Dhttp.proxyHost=hklxdv47 -Dhttp.proxyPort=20101 -Dhttps.proxyHost=hklxdv47 -Dhttps.proxyPort=20101'
     DOCKER_IMAGE = 'tatp-springboot-backend'
     DOCKER_NAME = 'springboot'
-    DOCKER_NETWORK_BASE = 'tatp'
   }
   stages {
     stage('Build') {
@@ -24,7 +23,7 @@ pipeline {
     stage('Deploy') {
       steps{
         sh 'docker container ls -a -fname=${DOCKER_NAME}-dev -q | xargs -r docker container rm --force'
-        sh 'docker run -d -p 9300:9300 --network=${DOCKER_NETWORK_BASE} --name ${DOCKER_NAME}-dev ${DOCKER_IMAGE}'
+        sh 'docker run -d -p 9300:9300 --name ${DOCKER_NAME}-dev ${DOCKER_IMAGE}'
         sh 'docker system prune -f'
       }
     }
@@ -32,7 +31,7 @@ pipeline {
       steps{
         input "Deploy to prod?"
         sh 'docker container ls -a -fname=${DOCKER_NAME}-production -q | xargs -r docker container rm --force'
-        sh 'docker run -d -p 9400:9300 --network=${DOCKER_NETWORK_BASE}-production --name ${DOCKER_NAME}-production -e SPRING_PROFILES_ACTIVE=production ${DOCKER_IMAGE}'
+        sh 'docker run -d -p 9400:9300 --name ${DOCKER_NAME}-production -e SPRING_PROFILES_ACTIVE=production ${DOCKER_IMAGE}'
         sh 'docker system prune -f'
       }
     }
