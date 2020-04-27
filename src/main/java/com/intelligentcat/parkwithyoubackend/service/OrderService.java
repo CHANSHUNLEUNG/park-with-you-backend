@@ -44,12 +44,10 @@ public class OrderService {
         return orderResponse;
     }
 
-    public Order extendCurrentBooking(Integer parkingPlaceId, ExtendOrderRequest order) {
-        String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
+    public Order extendCurrentBooking(Integer orderId, ExtendOrderRequest order) {
+        Order currentOrder = orderRepository.getOrderById(orderId);
 
-        Order currentOrder = parkingPlaceRepository.getOrderById(parkingPlaceId);
-
-        return parkingPlaceRepository.createExtendOrder(now, currentOrder, order);
+        return orderRepository.extendParkingBookingTime(currentOrder, order.getDuration());
     }
 
 	public List<OrderDetail> getOrderListByCustomer(Integer customerId) {

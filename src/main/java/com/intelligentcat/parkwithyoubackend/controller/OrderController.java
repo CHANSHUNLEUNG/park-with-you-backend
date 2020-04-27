@@ -28,9 +28,9 @@ public class OrderController {
         return orderService.getOrderListByCustomer(customerId);
     }
 
-    @PostMapping("/parking-lots/{parkingPlaceId}/booking")
-    public Order extendBooking(@PathVariable("parkingPlaceId") Integer parkingPlaceId,
+    @PostMapping("/parking-orders/{orderId}")
+    public Order extendBooking(@PathVariable("orderId") Integer orderId,
                                @RequestBody ExtendOrderRequest extendOrderRequest) {
-        return orderService.extendCurrentBooking(parkingPlaceId, extendOrderRequest);
+        return orderService.extendCurrentBooking(orderId, extendOrderRequest);
     }
 }

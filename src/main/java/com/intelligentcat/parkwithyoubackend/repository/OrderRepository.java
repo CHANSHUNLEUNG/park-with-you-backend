@@ -1,5 +1,6 @@
 package com.intelligentcat.parkwithyoubackend.repository;
 
+import com.intelligentcat.parkwithyoubackend.exception.NoAvailablePlaceException;
 import com.intelligentcat.parkwithyoubackend.model.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -56,12 +57,26 @@ public class OrderRepository {
 						parkingDuration);
 	}
 
-	public Order createExtendOrder(String now, Order currentOrder, ExtendOrderRequest order) {
-		Integer customerId = currentOrder.getCustomerId();
-		Integer parkingPlaceId = currentOrder.getParkingPlaceId();
-		String orderTime = now;
-		String startParkingTime = currentOrder.getStartTime();
-		Integer parkingDuration = order.getDuration();
+	public Order getOrderById(Integer parkingPlaceId) {
+		final String sql = "select * from `order` where id=?;";
+		List<Order> orders = jdbcTemplate.query(
+				sql,
+				new Object[]{parkingPlaceId},
+				(response, rowNumber) ->{
+					return new Order(
+							response.getString("order_time"),
+							response.getInt("id"),
+							response.getInt("customer_id"),
+							response.getInt("parking_place_id"),
+							response.getString("start_parking_time"),
+							response.getInt("parking_duration")
+					);
+				});
+		if(orders.size()==0){
+			throw new NoAvailablePlaceException();
+		}
+		return orders.get(0);
+	}
 
 		final String sql = "insert into `order` (customer_id, parking_place_id, order_time, start_parking_time, parking_duration) values (?, ?, ?, ?, ?)";
 		KeyHolder keyHolder = new GeneratedKeyHolder();
