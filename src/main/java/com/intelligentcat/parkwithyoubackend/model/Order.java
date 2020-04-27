@@ -7,6 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExtendOrderRequest {
+public class Order {
+    private String timeStamp;
+    private Integer orderId;
+    private Integer customerId;
+    private Integer parkingPlaceId;
+    private String startTime;
     private Integer duration;
 }

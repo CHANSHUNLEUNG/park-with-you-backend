@@ -1,6 +1,8 @@
 package com.intelligentcat.parkwithyoubackend.repository;
 
 import com.intelligentcat.parkwithyoubackend.exception.NoAvailablePlaceException;
+import com.intelligentcat.parkwithyoubackend.model.ExtendOrderRequest;
+import com.intelligentcat.parkwithyoubackend.model.Order;
 import com.intelligentcat.parkwithyoubackend.model.ParkingPlace;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

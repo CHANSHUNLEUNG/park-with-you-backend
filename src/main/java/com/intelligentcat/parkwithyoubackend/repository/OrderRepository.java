@@ -1,9 +1,7 @@
 package com.intelligentcat.parkwithyoubackend.repository;
 
-import com.intelligentcat.parkwithyoubackend.model.OrderDetail;
-import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
-import com.intelligentcat.parkwithyoubackend.model.OrderResponse;
-import com.intelligentcat.parkwithyoubackend.model.ParkingPlace;
+import com.intelligentcat.parkwithyoubackend.exception.NoAvailablePlaceException;
+import com.intelligentcat.parkwithyoubackend.model.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -57,6 +55,34 @@ public class OrderRepository {
 						parkingPlaceName,
 						startParkingTime,
 						parkingDuration);
+	}
+
+	public Order getOrderById(Integer parkingPlaceId) {
+		final String sql = "select * from `order` where id=?;";
+		List<Order> orders = jdbcTemplate.query(
+				sql,
+				new Object[]{parkingPlaceId},
+				(response, rowNumber) ->{
+					return new Order(
+							response.getString("order_time"),
+							response.getInt("id"),
+							response.getInt("customer_id"),
+							response.getInt("parking_place_id"),
+							response.getString("start_parking_time"),
+							response.getInt("parking_duration")
+					);
+				});
+		if(orders.size()==0){
+			throw new NoAvailablePlaceException();
+		}
+		return orders.get(0);
+	}
+
+	public Order extendParkingBookingTime(Order order, Integer duration) {
+		final String sql = "update `order` set parking_duration = parking_duration + ? where id= ?;";
+		jdbcTemplate.update(sql, new Object[]{duration, order.getOrderId()});
+		order.setDuration(order.getDuration() + duration);
+		return order;
 	}
 
 	private class OrderDetailRowMapper implements RowMapper<OrderDetail> {
