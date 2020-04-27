@@ -1,6 +1,7 @@
 package com.intelligentcat.parkwithyoubackend.service;
 
 import com.intelligentcat.parkwithyoubackend.model.ExtendOrderRequest;
+import com.intelligentcat.parkwithyoubackend.model.OrderDetail;
 import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
 import com.intelligentcat.parkwithyoubackend.model.OrderResponse;
 import com.intelligentcat.parkwithyoubackend.model.ParkingPlace;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -49,4 +51,7 @@ public class OrderService {
     public OrderResponse extendCurrentBooking(Integer parkingPlaceId, ExtendOrderRequest extendOrderRequest) {
         String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
     }
+	public List<OrderDetail> getOrderListByCustomer(Integer customerId) {
+        return orderRepository.findJointDetailByCustomerId(customerId);
+	}
 }
