@@ -40,4 +40,9 @@ public class CustomerController {
         }
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
+//
+//    @PostMapping("/{id}/update")
+//    public Customer updateInfo(@PathVariable("id") Integer id, @RequestBody Customer customer){
+//
+//    }
 }
