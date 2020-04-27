@@ -40,7 +40,7 @@ public class CustomerService {
     public boolean createUserAccount(Customer customer) {
         String newUserName = customer.getName();
         String newPassword = customer.getPassword();
-        String newBankAccount = customer.getBank_account();
+        String newBankAccount = customer.getBankAccount();
         if(newUserName != null && newPassword != null && newBankAccount != null) {
             return customerRepository.createNewUser(newUserName, newPassword, newBankAccount);
 
