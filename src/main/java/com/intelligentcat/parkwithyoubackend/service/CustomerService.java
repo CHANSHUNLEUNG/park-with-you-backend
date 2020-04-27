@@ -11,6 +11,7 @@ import java.util.List;
 
 @Service
 public class CustomerService {
+    private final String HIDDEN_PASSWORD = "******";
     private CustomerRepository customerRepository;
 
     @Autowired
@@ -18,7 +19,7 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public void verifyUserNamePassword(String userName, String password) {
+    public Customer verifyUserNamePassword(String userName, String password) {
         List<Customer> customers = customerRepository.getCustomerByName(userName);
         if (customers.size() == 0) {
             throw new InvalidAccountException();
@@ -27,7 +28,8 @@ public class CustomerService {
         if(!targetCustomer.getPassword().equals(password)){
             throw new IncorrectPasswordException();
         }
-        return;
+        targetCustomer.setPassword(HIDDEN_PASSWORD);
+        return targetCustomer;
     }
 
     public List<Customer> getAll() {

@@ -14,17 +14,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Service
-public class BookingService {
+public class OrderService {
     private CustomerRepository customerRepository;
     private ParkingLotRepository parkingLotRepository;
     private ParkingPlaceRepository parkingPlaceRepository;
     private OrderRepository orderRepository;
 
     @Autowired
-    public BookingService(CustomerRepository customerRepository,
-                          ParkingLotRepository parkingLotRepository,
-                          ParkingPlaceRepository parkingPlaceRepository,
-                          OrderRepository orderRepository){
+    public OrderService(CustomerRepository customerRepository,
+                        ParkingLotRepository parkingLotRepository,
+                        ParkingPlaceRepository parkingPlaceRepository,
+                        OrderRepository orderRepository){
         this.customerRepository = customerRepository;
         this.parkingLotRepository = parkingLotRepository;
         this.parkingPlaceRepository = parkingPlaceRepository;

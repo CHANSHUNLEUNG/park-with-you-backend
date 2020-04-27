@@ -25,7 +25,7 @@ public class CustomerRepository {
             customer.setId(resultSet.getInt("id"));
             customer.setName(resultSet.getString("name"));
             customer.setPassword(resultSet.getString("password"));
-            customer.setBank_account(resultSet.getString("bank_account"));
+            customer.setBankAccount(resultSet.getString("bank_account"));
             return customer;
         }
     }

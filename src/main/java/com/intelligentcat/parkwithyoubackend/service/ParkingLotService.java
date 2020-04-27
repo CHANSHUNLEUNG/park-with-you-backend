@@ -20,4 +20,8 @@ public class ParkingLotService {
 	public List<ParkingLot> getAllParkingLots() {
 		return parkingLotRepository.findAll();
 	}
+
+	public List<ParkingLot> getParkingLotsByRegion(String region) {
+		return parkingLotRepository.findByRegion(region);
+	}
 }

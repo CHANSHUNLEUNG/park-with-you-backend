@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderResponse {
-    String time_stamp;
-    Integer order_id;
-    Integer customer_id;
-    Integer parking_lot_id;
-    Integer parking_place_id;
-    String parking_place_name;
-    String start_time;
+    String timeStamp;
+    Integer orderId;
+    Integer customerId;
+    Integer parkingLotId;
+    Integer parkingPlaceId;
+    String parkingPlaceName;
+    String startTime;
     Integer duration;
 }

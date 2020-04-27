@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderRequest {
-    private Integer customer_id;
-    private String start_time;
+    private Integer customerId;
+    private String startTime;
     private Integer duration;
 }

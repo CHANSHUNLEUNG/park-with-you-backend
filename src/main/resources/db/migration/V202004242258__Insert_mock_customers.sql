@@ -1,11 +1,11 @@
-INSERT INTO `dev`.`customer` (
+INSERT INTO `customer` (
 	`name`
 	,`password`
 	,`bank_account`
 	)
 VALUES (
 	"Matt"
-	,"Matt"
+	,"matt"
 	,"123-456-789"
 	)
 	,(
