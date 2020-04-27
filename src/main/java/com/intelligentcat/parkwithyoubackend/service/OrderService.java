@@ -48,9 +48,9 @@ public class OrderService {
         return orderResponse;
     }
 
-    public OrderResponse extendCurrentBooking(Integer parkingPlaceId, ExtendOrderRequest extendOrderRequest) {
-        String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
-    }
+//    public OrderResponse extendCurrentBooking(Integer parkingPlaceId, ExtendOrderRequest extendOrderRequest) {
+//        String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
+//    }
 	public List<OrderDetail> getOrderListByCustomer(Integer customerId) {
         return orderRepository.findJointDetailByCustomerId(customerId);
 	}

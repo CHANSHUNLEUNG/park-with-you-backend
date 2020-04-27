@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerService {
@@ -32,9 +33,10 @@ public class CustomerService {
         return targetCustomer;
     }
 
-    public List<Customer> getAll() {
+    public List<String> getAll() {
         List<Customer> customers = customerRepository.getAllCustomer();
-        return customers;
+        List<String> customerNames = customers.stream().map(Customer::getName).collect(Collectors.toList());
+        return customerNames;
     }
 
     public boolean createUserAccount(Customer customer) {

@@ -31,9 +31,9 @@ public class OrderController {
         return orderService.getOrderListByCustomer(customerId);
     }
 
-    @PostMapping("/parking-lots/{parkingPlaceId}/booking")
-    public OrderResponse extendBooking(@PathVariable("parkingPlaceId") Integer parkingPlaceId,
-                                       @RequestBody ExtendOrderRequest extendOrderRequest) {
-        return orderService.extendCurrentBooking(parkingPlaceId, extendOrderRequest);
-    }
+//    @PostMapping("/parking-lots/{parkingPlaceId}/booking")
+//    public OrderResponse extendBooking(@PathVariable("parkingPlaceId") Integer parkingPlaceId,
+//                                       @RequestBody ExtendOrderRequest extendOrderRequest) {
+//        return orderService.extendCurrentBooking(parkingPlaceId, extendOrderRequest);
+//    }
 }
