@@ -1,5 +1,6 @@
 package com.intelligentcat.parkwithyoubackend.controller;
 
+import com.intelligentcat.parkwithyoubackend.model.ExtendOrderRequest;
 import com.intelligentcat.parkwithyoubackend.model.OrderDetail;
 import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
 import com.intelligentcat.parkwithyoubackend.model.OrderResponse;
@@ -28,5 +29,11 @@ public class OrderController {
     @GetMapping("/parking-orders/customers/{customerId}")
     public List<OrderDetail> getOrderListByCustomer(@PathVariable Integer customerId) {
         return orderService.getOrderListByCustomer(customerId);
+    }
+
+    @PostMapping("/parking-lots/{parkingPlaceId}/booking")
+    public OrderResponse extendBooking(@PathVariable("parkingPlaceId") Integer parkingPlaceId,
+                                       @RequestBody ExtendOrderRequest extendOrderRequest) {
+        return orderService.extendCurrentBooking(parkingPlaceId, extendOrderRequest);
     }
 }
