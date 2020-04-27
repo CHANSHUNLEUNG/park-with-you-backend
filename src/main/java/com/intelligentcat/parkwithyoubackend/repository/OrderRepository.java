@@ -20,12 +20,12 @@ public class OrderRepository {
     }
 
     public OrderResponse createNewOrder(String now, ParkingPlace availablePlace, OrderRequest orderRequest) {
-        Integer customerId = orderRequest.getCustomer_id();
-        Integer parkingLotId = availablePlace.getParking_lot_id();
+        Integer customerId = orderRequest.getCustomerId();
+        Integer parkingLotId = availablePlace.getParkingLotId();
         Integer parkingPlaceId = availablePlace.getId();
         String parkingPlaceName = availablePlace.getName();
         String orderTime = now;
-        String startParkingTime = orderRequest.getStart_time();
+        String startParkingTime = orderRequest.getStartTime();
         Integer parkingDuration = orderRequest.getDuration();
 
         final String sql = "insert into `order` (customer_id, parking_place_id, order_time, start_parking_time, parking_duration) values (?, ?, ?, ?, ?)";

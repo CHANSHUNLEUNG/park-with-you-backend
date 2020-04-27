@@ -1,6 +1,6 @@
 package com.intelligentcat.parkwithyoubackend;
 
-import com.intelligentcat.parkwithyoubackend.controller.BookingController;
+import com.intelligentcat.parkwithyoubackend.controller.OrderController;
 import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
 import com.intelligentcat.parkwithyoubackend.service.BookingService;
 import io.restassured.http.ContentType;
@@ -16,13 +16,13 @@ import org.springframework.http.HttpStatus;
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 
 @SpringBootTest
-public class BookingControllerTests {
+public class OrderControllerTests {
     @Autowired
     BookingService bookingService;
 
     @Before
     public void setUp(){
-        RestAssuredMockMvc.standaloneSetup(new BookingController(bookingService));
+        RestAssuredMockMvc.standaloneSetup(new OrderController(bookingService));
     }
 
     @Test

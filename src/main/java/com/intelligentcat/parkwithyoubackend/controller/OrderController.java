@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/parking-lots/{parkingLotId}/booking")
-public class BookingController {
+public class OrderController {
     private BookingService bookingService;
 
     @Autowired
-    public BookingController(BookingService bookingService) {
+    public OrderController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
 
