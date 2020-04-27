@@ -13,6 +13,8 @@ import java.util.List;
 public class ParkingLotRepository {
 	private JdbcTemplate jdbcTemplate;
 
+
+
 	private class ParkingLotRowMapper implements RowMapper<ParkingLot> {
 		@Override
 		public ParkingLot mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
@@ -33,8 +35,13 @@ public class ParkingLotRepository {
 	}
 
 	public List<ParkingLot> findAll() {
-		final String sql = "select * from parking_lot";
+		final String sql = "select * from parking_lot;";
 		return jdbcTemplate.query(sql, new ParkingLotRowMapper());
+	}
+
+	public List<ParkingLot> findByRegion(String region) {
+		final String sql = "select * from parking_lot where region=?;";
+		return jdbcTemplate.query(sql, new Object[]{region}, new ParkingLotRowMapper());
 	}
 
 	public boolean deductAvailableCountById(Integer parkingLotId){
