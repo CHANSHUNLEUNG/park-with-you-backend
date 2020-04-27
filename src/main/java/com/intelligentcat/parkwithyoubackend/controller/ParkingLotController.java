@@ -1,5 +1,7 @@
 package com.intelligentcat.parkwithyoubackend.controller;
 
+import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
+import com.intelligentcat.parkwithyoubackend.model.OrderResponse;
 import com.intelligentcat.parkwithyoubackend.model.ParkingLot;
 import com.intelligentcat.parkwithyoubackend.service.ParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +28,11 @@ public class ParkingLotController {
 			return parkingLotService.getParkingLotsByRegion(region);
 		}
 		return parkingLotService.getAllParkingLots();
+	}
+
+	@PostMapping("/parking-lots/{parkingLotId}/booking")
+	public OrderResponse addNewBooking(@PathVariable("parkingLotId") Integer parkingLotId,
+									   @RequestBody OrderRequest orderRequest) {
+		return parkingLotService.addNewBooking(parkingLotId, orderRequest);
 	}
 }

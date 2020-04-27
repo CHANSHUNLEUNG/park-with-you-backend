@@ -17,12 +17,6 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/parking-lots/{parkingLotId}/booking")
-    public OrderResponse addNewBooking(@PathVariable("parkingLotId") Integer parkingLotId,
-                                       @RequestBody OrderRequest orderRequest) {
-        return orderService.addNewBooking(parkingLotId, orderRequest);
-    }
-
     @GetMapping("/parking-orders/customers/{customerId}")
     public List<OrderDetail> getOrderListByCustomer(@PathVariable Integer customerId) {
         return orderService.getOrderListByCustomer(customerId);
