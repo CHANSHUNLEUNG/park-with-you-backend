@@ -11,12 +11,15 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+
 import java.sql.*;
 import java.util.List;
 
 @Repository
 public class CustomerRepository {
     private JdbcTemplate jdbcTemplate;
+
+
 
     private class CustomerRowMapper implements RowMapper<Customer> {
         @Override
@@ -63,6 +66,35 @@ public class CustomerRepository {
                     }
                 },
                 keyHolder
+
+
+            );
+
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean updateUserAccount(Integer id ,String updatedUserName, String updatedPassword, String updatedBankAccount) {
+        final String sql = "update customer set name = ?, password = ?, bank_account = ? where id = ?;";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        try {
+
+            jdbcTemplate.update(
+                    new PreparedStatementCreator() {
+                        @Override
+                        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                            ps.setString(1, updatedUserName);
+                            ps.setString(2, updatedPassword);
+                            ps.setString(3, updatedBankAccount);
+                            ps.setInt(4,id);
+                            return ps;
+                        }
+                    },
+                    keyHolder
 
 
             );

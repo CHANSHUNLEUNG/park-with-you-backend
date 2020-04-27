@@ -49,4 +49,15 @@ public class CustomerService {
         }
         return false;
     }
+
+    public boolean updateUserAccountInfo(Integer id, Customer customer) {
+        String updatedUserName = customer.getName();
+        String updatedPassword = customer.getPassword();
+        String updatedBankAccount = customer.getBankAccount();
+        if(updatedUserName != null && updatedPassword != null && updatedBankAccount != null) {
+            return customerRepository.updateUserAccount(id, updatedUserName, updatedPassword, updatedBankAccount);
+
+        }
+        return false;
+    }
 }

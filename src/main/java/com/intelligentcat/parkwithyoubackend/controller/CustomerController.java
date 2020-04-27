@@ -40,9 +40,13 @@ public class CustomerController {
         }
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
-//
-//    @PostMapping("/{id}/update")
-//    public Customer updateInfo(@PathVariable("id") Integer id, @RequestBody Customer customer){
-//
-//    }
+
+    @PostMapping("/{id}/update")
+    public ResponseEntity<Object> updateInfo(@PathVariable("id") Integer id, @RequestBody Customer customer){
+        boolean isUpdatedSuccess = customerService.updateUserAccountInfo(id,customer);
+        if(!isUpdatedSuccess) {
+            return new ResponseEntity<>("Error, cannot update user information.", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
 }
