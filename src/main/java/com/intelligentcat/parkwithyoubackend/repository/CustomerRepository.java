@@ -46,7 +46,7 @@ public class CustomerRepository {
 
 
     public boolean createNewUser(String newUserName, String newPassword, String newBankAccount) {
-        final String sql = "insert into `customer` (name,password,bank_account) values (?,?,?);";
+        final String sql = "insert into customer (name,password,bank_account) values (?,sha2(?,256),?);";
 
         try {
             KeyHolder keyHolder = new GeneratedKeyHolder();
