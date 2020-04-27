@@ -2,7 +2,7 @@ package com.intelligentcat.parkwithyoubackend;
 
 import com.intelligentcat.parkwithyoubackend.controller.OrderController;
 import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
-import com.intelligentcat.parkwithyoubackend.service.BookingService;
+import com.intelligentcat.parkwithyoubackend.service.OrderService;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.response.MockMvcResponse;
@@ -18,11 +18,11 @@ import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 @SpringBootTest
 public class OrderControllerTests {
     @Autowired
-    BookingService bookingService;
+    OrderService orderService;
 
     @Before
     public void setUp(){
-        RestAssuredMockMvc.standaloneSetup(new OrderController(bookingService));
+        RestAssuredMockMvc.standaloneSetup(new OrderController(orderService));
     }
 
     @Test
