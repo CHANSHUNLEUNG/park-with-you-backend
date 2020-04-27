@@ -8,6 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExtendOrderRequest {
-    private Integer orderId;
     private Integer duration;
 }

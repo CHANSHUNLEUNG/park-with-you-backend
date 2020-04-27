@@ -46,25 +46,4 @@ public class ParkingPlaceRepository {
         }
         return true;
     }
-
-    public Order getOrderById(Integer parkingPlaceId) {
-        final String sql = "select * from `order` where id=?;";
-        List<Order> orders = jdbcTemplate.query(
-                sql,
-                new Object[]{parkingPlaceId},
-                (response, rowNumber) ->{
-                    return new Order(
-                            response.getString("time_stamp"),
-                            response.getString("id"),
-                            response.getString("customer_id"),
-                            response.getInt("parking_place_id"),
-                            response.getString("start_time"),
-                            response.getInt("duration")
-                    );
-                });
-        if(orders.size()==0){
-            throw new NoAvailablePlaceException();
-        }
-        return orders.get(0);
-    }
 }
