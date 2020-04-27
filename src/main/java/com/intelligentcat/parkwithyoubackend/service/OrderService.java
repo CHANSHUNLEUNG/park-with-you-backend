@@ -1,5 +1,6 @@
 package com.intelligentcat.parkwithyoubackend.service;
 
+import com.intelligentcat.parkwithyoubackend.model.OrderDetail;
 import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
 import com.intelligentcat.parkwithyoubackend.model.OrderResponse;
 import com.intelligentcat.parkwithyoubackend.model.ParkingPlace;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -44,4 +46,8 @@ public class OrderService {
 
         return orderResponse;
     }
+
+	public List<OrderDetail> getOrderListByCustomer(Integer customerId) {
+        return orderRepository.findJointDetailByCustomerId(customerId);
+	}
 }
