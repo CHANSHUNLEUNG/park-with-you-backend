@@ -1,10 +1,6 @@
 package com.intelligentcat.parkwithyoubackend.service;
 
-import com.intelligentcat.parkwithyoubackend.model.ExtendOrderRequest;
-import com.intelligentcat.parkwithyoubackend.model.OrderDetail;
-import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
-import com.intelligentcat.parkwithyoubackend.model.OrderResponse;
-import com.intelligentcat.parkwithyoubackend.model.ParkingPlace;
+import com.intelligentcat.parkwithyoubackend.model.*;
 import com.intelligentcat.parkwithyoubackend.repository.CustomerRepository;
 import com.intelligentcat.parkwithyoubackend.repository.OrderRepository;
 import com.intelligentcat.parkwithyoubackend.repository.ParkingLotRepository;
@@ -48,9 +44,14 @@ public class OrderService {
         return orderResponse;
     }
 
-    public OrderResponse extendCurrentBooking(Integer parkingPlaceId, ExtendOrderRequest extendOrderRequest) {
+    public Order extendCurrentBooking(Integer parkingPlaceId, ExtendOrderRequest order) {
         String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
+
+        Order currentOrder = parkingPlaceRepository.getOrderById(parkingPlaceId);
+
+        return parkingPlaceRepository.createExtendOrder(now, currentOrder, order);
     }
+
 	public List<OrderDetail> getOrderListByCustomer(Integer customerId) {
         return orderRepository.findJointDetailByCustomerId(customerId);
 	}

@@ -8,10 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExtendOrderRequest {
-    private String timeStamp;
     private Integer orderId;
-    private String customerId;
-    private Integer parkingPlaceId;
-    private String startTime;
     private Integer duration;
 }

@@ -1,6 +1,8 @@
 package com.intelligentcat.parkwithyoubackend.repository;
 
 import com.intelligentcat.parkwithyoubackend.exception.NoAvailablePlaceException;
+import com.intelligentcat.parkwithyoubackend.model.ExtendOrderRequest;
+import com.intelligentcat.parkwithyoubackend.model.Order;
 import com.intelligentcat.parkwithyoubackend.model.ParkingPlace;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -43,5 +45,26 @@ public class ParkingPlaceRepository {
             return false;
         }
         return true;
+    }
+
+    public Order getOrderById(Integer parkingPlaceId) {
+        final String sql = "select * from `order` where id=?;";
+        List<Order> orders = jdbcTemplate.query(
+                sql,
+                new Object[]{parkingPlaceId},
+                (response, rowNumber) ->{
+                    return new Order(
+                            response.getString("time_stamp"),
+                            response.getString("id"),
+                            response.getString("customer_id"),
+                            response.getInt("parking_place_id"),
+                            response.getString("start_time"),
+                            response.getInt("duration")
+                    );
+                });
+        if(orders.size()==0){
+            throw new NoAvailablePlaceException();
+        }
+        return orders.get(0);
     }
 }

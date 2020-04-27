@@ -1,9 +1,6 @@
 package com.intelligentcat.parkwithyoubackend.controller;
 
-import com.intelligentcat.parkwithyoubackend.model.ExtendOrderRequest;
-import com.intelligentcat.parkwithyoubackend.model.OrderDetail;
-import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
-import com.intelligentcat.parkwithyoubackend.model.OrderResponse;
+import com.intelligentcat.parkwithyoubackend.model.*;
 import com.intelligentcat.parkwithyoubackend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +29,8 @@ public class OrderController {
     }
 
     @PostMapping("/parking-lots/{parkingPlaceId}/booking")
-    public OrderResponse extendBooking(@PathVariable("parkingPlaceId") Integer parkingPlaceId,
-                                       @RequestBody ExtendOrderRequest extendOrderRequest) {
+    public Order extendBooking(@PathVariable("parkingPlaceId") Integer parkingPlaceId,
+                               @RequestBody ExtendOrderRequest extendOrderRequest) {
         return orderService.extendCurrentBooking(parkingPlaceId, extendOrderRequest);
     }
 }

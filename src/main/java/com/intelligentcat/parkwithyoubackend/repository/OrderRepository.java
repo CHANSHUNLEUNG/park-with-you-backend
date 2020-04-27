@@ -1,9 +1,6 @@
 package com.intelligentcat.parkwithyoubackend.repository;
 
-import com.intelligentcat.parkwithyoubackend.model.OrderDetail;
-import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
-import com.intelligentcat.parkwithyoubackend.model.OrderResponse;
-import com.intelligentcat.parkwithyoubackend.model.ParkingPlace;
+import com.intelligentcat.parkwithyoubackend.model.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -57,6 +54,39 @@ public class OrderRepository {
 						parkingPlaceName,
 						startParkingTime,
 						parkingDuration);
+	}
+
+	public Order createExtendOrder(String now, Order currentOrder, ExtendOrderRequest order) {
+		Integer customerId = currentOrder.getCustomerId();
+		Integer parkingPlaceId = currentOrder.getParkingPlaceId();
+		String orderTime = now;
+		String startParkingTime = currentOrder.getStartTime();
+		Integer parkingDuration = order.getDuration();
+
+		final String sql = "insert into `order` (customer_id, parking_place_id, order_time, start_parking_time, parking_duration) values (?, ?, ?, ?, ?)";
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(
+				new PreparedStatementCreator() {
+					@Override
+					public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+						PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+						ps.setInt(1, customerId);
+						ps.setInt(2, parkingPlaceId);
+						ps.setString(3, orderTime);
+						ps.setString(4, startParkingTime);
+						ps.setInt(5, parkingDuration);
+						return ps;
+					}
+				},
+				keyHolder
+		);
+		Integer orderId = keyHolder.getKey().intValue();
+		return new Order(now,
+				orderId,
+				customerId,
+				parkingPlaceId,
+				startParkingTime,
+				parkingDuration);
 	}
 
 	private class OrderDetailRowMapper implements RowMapper<OrderDetail> {
