@@ -29,4 +29,20 @@ public class CustomerService {
         }
         return;
     }
+
+    public List<Customer> getAll() {
+        List<Customer> customers = customerRepository.getAllCustomer();
+        return customers;
+    }
+
+    public boolean createUserAccount(Customer customer) {
+        String newUserName = customer.getName();
+        String newPassword = customer.getPassword();
+        String newBankAccount = customer.getBank_account();
+        if(newUserName != null && newPassword != null && newBankAccount != null) {
+            return customerRepository.createNewUser(newUserName, newPassword, newBankAccount);
+
+        }
+        return false;
+    }
 }
