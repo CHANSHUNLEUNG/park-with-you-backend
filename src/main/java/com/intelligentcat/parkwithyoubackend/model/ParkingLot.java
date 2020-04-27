@@ -11,8 +11,8 @@ public class ParkingLot {
 	Integer id;
 	String name;
 	String address;
-	Double unitPrice;
+	Double unit_price;
 	Integer capacity;
-	Integer availableCount;
+	Integer available_count;
 	String region;
 }

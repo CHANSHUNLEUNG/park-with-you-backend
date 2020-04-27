@@ -20,9 +20,9 @@ public class ParkingLotRepository {
 			parkingLot.setId(resultSet.getInt("id"));
 			parkingLot.setName(resultSet.getString("name"));
 			parkingLot.setAddress(resultSet.getString("address"));
-			parkingLot.setUnitPrice(resultSet.getDouble("unit_price"));
+			parkingLot.setUnit_price(resultSet.getDouble("unit_price"));
 			parkingLot.setCapacity(resultSet.getInt("capacity"));
-			parkingLot.setAvailableCount(resultSet.getInt("available_count"));
+			parkingLot.setAvailable_count(resultSet.getInt("available_count"));
 			parkingLot.setRegion(resultSet.getString("region"));
 			return parkingLot;
 		}
