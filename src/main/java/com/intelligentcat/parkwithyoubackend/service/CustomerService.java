@@ -20,7 +20,7 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public Customer verifyUserNamePassword(String userName, String password) {
+    public Customer login(String userName, String password) {
         List<Customer> customers = customerRepository.getCustomerByName(userName);
         if (customers.size() == 0) {
             throw new InvalidAccountException();
