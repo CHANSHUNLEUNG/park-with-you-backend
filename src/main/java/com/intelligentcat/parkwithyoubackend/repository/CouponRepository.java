@@ -51,7 +51,7 @@ public class CouponRepository {
 	}
 
 	public Integer getAvailableCouponCountById(Integer customerId) {
-		final String sql = "select count(*) as count from `coupon` where customer_id = ?;";
+		final String sql = "select count(*) as count from `coupon` where customer_id = ? and status = 'active';";
 
 		Integer availableCouponCount = jdbcTemplate.queryForObject(
 				sql,
