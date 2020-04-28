@@ -27,67 +27,67 @@ import static org.mockito.Mockito.doReturn;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ParkingLotControllerTests {
-	ParkingLotService parkingLotService;
+    ParkingLotService parkingLotService;
 
-	@Before
-	public void setUp() {
-		parkingLotService = Mockito.mock(ParkingLotService.class);
-		RestAssuredMockMvc.standaloneSetup(new ParkingLotController(parkingLotService));
-	}
+    @Before
+    public void setUp() {
+        parkingLotService = Mockito.mock(ParkingLotService.class);
+        RestAssuredMockMvc.standaloneSetup(new ParkingLotController(parkingLotService));
+    }
 
-	@Test
-	public void should_get_all_parking_lot_list_when_request_parking_lot() {
-		MockMvcResponse response = given()
-						.contentType(ContentType.JSON)
-						.when()
-						.get("/parking-lots");
+    @Test
+    public void should_get_all_parking_lot_list_when_request_parking_lot() {
+        MockMvcResponse response = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/parking-lots");
 
-		List<ParkingLot> parkingLots = response
-						.getBody()
-						.as(
-										new TypeRef<List<ParkingLot>>() {
-											@Override
-											public Type getType() {
-												return super.getType();
-											}
-										}
-						);
+        List<ParkingLot> parkingLots = response
+                .getBody()
+                .as(
+                        new TypeRef<List<ParkingLot>>() {
+                            @Override
+                            public Type getType() {
+                                return super.getType();
+                            }
+                        }
+                );
 
-		System.out.println(parkingLots);
-		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-	}
+        System.out.println(parkingLots);
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+    }
 
-	@Test
-	public void should_get_one_tai_po_parking_lot_list_when_request_parking_lot_with_tai_po_request_param() {
-		MockMvcResponse response = given()
-						.contentType(ContentType.JSON)
-						.when()
-						.get("/parking-lots?region=Tai Po");
+    @Test
+    public void should_get_one_tai_po_parking_lot_list_when_request_parking_lot_with_tai_po_request_param() {
+        MockMvcResponse response = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/parking-lots?region=Tai Po");
 
-		List<ParkingLot> parkingLots = response
-						.getBody()
-						.as(
-										new TypeRef<List<ParkingLot>>() {
-											@Override
-											public Type getType() {
-												return super.getType();
-											}
-										}
-						);
+        List<ParkingLot> parkingLots = response
+                .getBody()
+                .as(
+                        new TypeRef<List<ParkingLot>>() {
+                            @Override
+                            public Type getType() {
+                                return super.getType();
+                            }
+                        }
+                );
 
-		System.out.println(parkingLots);
-		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-	}
+        System.out.println(parkingLots);
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+    }
 
-	@Test
-	public void should_get_receipt_when_sent_booking_request() {
-		doReturn(new OrderResponse()).when(parkingLotService).addNewBooking(any(), any());
-		OrderRequest orderRequest;
-		orderRequest = new OrderRequest(1, "2020-04-26 23:00:00", 3600);
-		MockMvcResponse response = given().contentType(ContentType.JSON)
-						.body(orderRequest)
-						.when()
-						.post("/parking-lots/3/booking");
-		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-	}
+    @Test
+    public void should_get_receipt_when_sent_booking_request() {
+        doReturn(new OrderResponse()).when(parkingLotService).addNewBooking(any(), any());
+        OrderRequest orderRequest;
+        orderRequest = new OrderRequest(1, "2020-04-26 23:00:00", 3600);
+        MockMvcResponse response = given().contentType(ContentType.JSON)
+                .body(orderRequest)
+                .when()
+                .post("/parking-lots/3/booking");
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+    }
 }

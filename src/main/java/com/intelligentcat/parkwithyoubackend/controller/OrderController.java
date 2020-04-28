@@ -1,6 +1,8 @@
 package com.intelligentcat.parkwithyoubackend.controller;
 
-import com.intelligentcat.parkwithyoubackend.model.*;
+import com.intelligentcat.parkwithyoubackend.model.ExtendOrderRequest;
+import com.intelligentcat.parkwithyoubackend.model.Order;
+import com.intelligentcat.parkwithyoubackend.model.OrderDetail;
 import com.intelligentcat.parkwithyoubackend.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

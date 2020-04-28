@@ -26,62 +26,74 @@ import static org.mockito.Mockito.doReturn;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CustomerControllerTests {
-	CustomerService customerService;
+    CustomerService customerService;
 
-	@Before
-	public void setUp() {
-		customerService = Mockito.mock(CustomerService.class);
-		RestAssuredMockMvc.standaloneSetup(new CustomerController(customerService));
-	}
+    @Before
+    public void setUp() {
+        customerService = Mockito.mock(CustomerService.class);
+        RestAssuredMockMvc.standaloneSetup(new CustomerController(customerService));
+    }
 
-	@Test
-	public void should_login_success_with_correct_customer_username_and_password() {
-		doReturn(new Customer()).when(customerService).login(any(), any());
-		MockMvcResponse response = given()
-						.contentType(ContentType.JSON)
-						.body(new CustomerRequest("4f31fa50e5bd5ff45684e560fc24aeee527a43739ab611c49c51098a33e2b469"))
-						.when()
-						.post("/customers/Matt/login");
+    @Test
+    public void should_login_success_with_correct_customer_username_and_password() {
+        doReturn(new Customer()).when(customerService).login(any(), any());
+        MockMvcResponse response = given()
+                .contentType(ContentType.JSON)
+                .body(new CustomerRequest("4f31fa50e5bd5ff45684e560fc24aeee527a43739ab611c49c51098a33e2b469"))
+                .when()
+                .post("/customers/Matt/login");
 
-		Customer customer = response
-						.getBody()
-						.as(Customer.class);
+        Customer customer = response
+                .getBody()
+                .as(Customer.class);
 
-		System.out.println(customer);
-		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-	}
+        System.out.println(customer);
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+    }
 
-	@Test
-	public void should_get_all_customer() {
-		MockMvcResponse response = given()
-						.contentType(ContentType.JSON)
-						.when()
-						.get("/customers");
+    @Test
+    public void should_get_all_customer() {
+        MockMvcResponse response = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/customers");
 
-		List<String> customers = response
-						.getBody()
-						.as(
-										new TypeRef<List<String>>() {
-											@Override
-											public Type getType() {
-												return super.getType();
-											}
-										}
-						);
+        List<String> customers = response
+                .getBody()
+                .as(
+                        new TypeRef<List<String>>() {
+                            @Override
+                            public Type getType() {
+                                return super.getType();
+                            }
+                        }
+                );
 
-		System.out.println(customers);
-		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-	}
+        System.out.println(customers);
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+    }
 
-	@Test
-	public void should_return_200_when_create_customer(){
-		doReturn(true).when(customerService).createUserAccount(any());
-		MockMvcResponse response = given()
-				.body(new Customer())
-				.contentType(ContentType.JSON)
-				.when()
-				.post("/customers");
-		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+    @Test
+    public void should_return_200_when_create_customer() {
+        doReturn(true).when(customerService).createUserAccount(any());
+        MockMvcResponse response = given()
+                .body(new Customer())
+                .contentType(ContentType.JSON)
+                .when()
+                .post("/customers");
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
 
-	}
+    }
+
+    @Test
+    public void should_return_200_when_update_customer() {
+        Customer customer = new Customer(10, 1, "Matt", "matt", "789-456-123", 0, 10.0);
+        doReturn(true).when(customerService).updateUserAccountInfo(any(), any());
+        MockMvcResponse response = given()
+                .body(customer)
+                .contentType(ContentType.JSON)
+                .when()
+                .put("/customers/1");
+        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+    }
 }

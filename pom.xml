@@ -14,12 +14,13 @@
 	<packaging>jar</packaging>
 	<name>park-with-you-backend</name>
 	<description>Spring Boot project for Park WithYou Backend</description>
-	
+
 
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Hoxton.SR3</spring-cloud.version>
 	</properties>
+
 
 	<dependencies>
 		<dependency>
@@ -127,6 +128,18 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M3</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.surefire</groupId>
+						<artifactId>surefire-junit47</artifactId>
+						<version>3.0.0-M3</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 		<finalName>parking-lot-application</finalName>

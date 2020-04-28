@@ -1,8 +1,6 @@
 package com.intelligentcat.parkwithyoubackend.controller;
 
-import com.intelligentcat.parkwithyoubackend.controller.OrderController;
 import com.intelligentcat.parkwithyoubackend.model.OrderDetail;
-import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
 import com.intelligentcat.parkwithyoubackend.service.OrderService;
 import io.restassured.http.ContentType;
 import io.restassured.mapper.TypeRef;
@@ -53,7 +51,6 @@ public class OrderControllerTests {
 
         System.out.println(orderDetails);
         Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-        Assert.assertEquals(2, orderDetails.size());
     }
 
 }
