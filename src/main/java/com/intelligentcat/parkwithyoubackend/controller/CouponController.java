@@ -5,6 +5,8 @@ import com.intelligentcat.parkwithyoubackend.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
+
 
 @RestController
 @RequestMapping("/coupons")
@@ -16,9 +18,10 @@ public class CouponController {
 		this.couponService = couponService;
 	}
 
-	@PostMapping
-	public void activateCoupon(@RequestParam Integer couponid) {
-		couponService.activateCoupon(couponid);
+	@GetMapping
+	public void activateCoupon(@RequestParam String coupon) {
+		Integer couponId = Integer.valueOf(new String(Base64.getDecoder().decode(coupon)));
+		couponService.activateCoupon(couponId);
 	}
 
 	@GetMapping("/{customerId}/order/{orderId}")
