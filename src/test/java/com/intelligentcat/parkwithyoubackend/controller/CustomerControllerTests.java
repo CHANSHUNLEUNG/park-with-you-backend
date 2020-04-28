@@ -48,4 +48,27 @@ public class CustomerControllerTests {
 		System.out.println(customer);
 		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
 	}
+
+	@Test
+	public void should_get_all_customer() {
+		MockMvcResponse response = given()
+						.contentType(ContentType.JSON)
+						.when()
+						.get("/customers");
+
+		List<String> customers = response
+						.getBody()
+						.as(
+										new TypeRef<List<String>>() {
+											@Override
+											public Type getType() {
+												return super.getType();
+											}
+										}
+						);
+
+		System.out.println(customers);
+		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
+		Assert.assertEquals(8, customers.size());
+	}
 }
