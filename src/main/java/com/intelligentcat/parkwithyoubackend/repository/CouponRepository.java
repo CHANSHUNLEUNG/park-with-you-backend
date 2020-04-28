@@ -49,4 +49,17 @@ public class CouponRepository {
 		}
 		return couponIds.get(0);
 	}
+
+	public Integer getAvailableCouponCountById(Integer customerId) {
+		final String sql = "select count(*) as count from `coupon` where customer_id = ?;";
+
+		Integer availableCouponCount = jdbcTemplate.queryForObject(
+				sql,
+				new Object[]{customerId},
+				(response, rowNumber) -> {
+					return new Integer(response.getInt("count"));
+				}
+		);
+		return availableCouponCount;
+	}
 }

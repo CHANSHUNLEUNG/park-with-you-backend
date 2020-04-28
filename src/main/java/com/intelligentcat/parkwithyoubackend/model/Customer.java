@@ -8,9 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Customer {
+Integer discountAmount;
     Integer id;
     String name;
     String password;
     String BankAccount;
     Integer availableCouponCount;
+    Double discount;
 }

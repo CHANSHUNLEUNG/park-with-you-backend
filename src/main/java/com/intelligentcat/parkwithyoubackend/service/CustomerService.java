@@ -3,6 +3,7 @@ package com.intelligentcat.parkwithyoubackend.service;
 import com.intelligentcat.parkwithyoubackend.exception.InvalidAccountException;
 import com.intelligentcat.parkwithyoubackend.exception.IncorrectPasswordException;
 import com.intelligentcat.parkwithyoubackend.model.Customer;
+import com.intelligentcat.parkwithyoubackend.repository.CouponRepository;
 import com.intelligentcat.parkwithyoubackend.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,14 @@ import java.util.stream.Collectors;
 @Service
 public class CustomerService {
     private final String HIDDEN_PASSWORD = "******";
+    private final Double DISCOUNT_AMOUNT = new Double(10);
     private CustomerRepository customerRepository;
+    private CouponRepository couponRepository;
 
     @Autowired
-    public CustomerService(CustomerRepository customerRepository) {
+    public CustomerService(CustomerRepository customerRepository, CouponRepository couponRepository) {
         this.customerRepository = customerRepository;
+        this.couponRepository = couponRepository;
     }
 
     public Customer login(String userName, String password) {
@@ -30,6 +34,10 @@ public class CustomerService {
             throw new IncorrectPasswordException();
         }
         targetCustomer.setPassword(HIDDEN_PASSWORD);
+
+        Integer availableCouponCount = couponRepository.getAvailableCouponCountById(targetCustomer.getId());
+        targetCustomer.setAvailableCouponCount(availableCouponCount);
+        targetCustomer.setDiscount(DISCOUNT_AMOUNT);
         return targetCustomer;
     }
 
