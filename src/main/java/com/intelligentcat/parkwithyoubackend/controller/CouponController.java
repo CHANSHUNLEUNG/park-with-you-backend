@@ -24,9 +24,9 @@ public class CouponController {
 		couponService.activateCoupon(couponId);
 	}
 
-	@GetMapping("/{customerId}/order/{orderId}")
-	public ShareLink getShareLinkByCustomerIdAndOrderId(@PathVariable Integer customerId,
-														@PathVariable Integer orderId){
+	@GetMapping("/share-link")
+	public ShareLink getShareLinkByCustomerIdAndOrderId(@RequestParam Integer customerId,
+														@RequestParam Integer orderId){
 		return couponService.getShareLink(customerId, orderId);
 	}
 }
