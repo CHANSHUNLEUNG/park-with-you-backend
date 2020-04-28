@@ -21,12 +21,12 @@ public class OrderControllerTests {
     OrderService orderService;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         RestAssuredMockMvc.standaloneSetup(new OrderController(orderService));
     }
 
     @Test
-    public void should_get_receipt_when_sent_booking_request(){
+    public void should_get_receipt_when_sent_booking_request() {
         OrderRequest orderRequest;
         orderRequest = new OrderRequest(1, "2020-04-26 23:00:00", 3600);
         MockMvcResponse response = given().contentType(ContentType.JSON)

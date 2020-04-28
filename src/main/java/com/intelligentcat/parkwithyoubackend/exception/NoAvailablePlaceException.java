@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
 public class NoAvailablePlaceException extends RuntimeException {
-    public NoAvailablePlaceException(){
+    public NoAvailablePlaceException() {
         super("No available parking place.");
     }
 }

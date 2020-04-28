@@ -17,12 +17,12 @@ public class ParkingPlaceRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public ParkingPlace getNextAvailableParkingPlace(Integer parkingLotId){
+    public ParkingPlace getNextAvailableParkingPlace(Integer parkingLotId) {
         final String sql = "select * from parking_place where parking_lot_id=? and status=\"available\" limit 1;";
         List<ParkingPlace> nextAvailablePlace = jdbcTemplate.query(
                 sql,
                 new Object[]{parkingLotId},
-                (response, rowNumber) ->{
+                (response, rowNumber) -> {
                     return new ParkingPlace(
                             response.getInt("id"),
                             response.getString("name"),
@@ -30,18 +30,17 @@ public class ParkingPlaceRepository {
                             response.getString("status")
                     );
                 });
-        if(nextAvailablePlace.size()==0){
+        if (nextAvailablePlace.size() == 0) {
             throw new NoAvailablePlaceException();
         }
         return nextAvailablePlace.get(0);
     }
 
-    public boolean markParkingPlaceAsUnavailable(Integer parkingLotId, Integer parkingPlaceId){
+    public boolean markParkingPlaceAsUnavailable(Integer parkingLotId, Integer parkingPlaceId) {
         final String sql = "update parking_place set status='unavailable' where id=? and parking_lot_id=?;";
         try {
-            jdbcTemplate.update(sql, new Object[] {parkingPlaceId, parkingLotId});
-        }
-        catch(Exception e){
+            jdbcTemplate.update(sql, new Object[]{parkingPlaceId, parkingLotId});
+        } catch (Exception e) {
             return false;
         }
         return true;

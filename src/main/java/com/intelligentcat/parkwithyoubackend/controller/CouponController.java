@@ -11,21 +11,21 @@ import java.util.Base64;
 @RestController
 @RequestMapping("/coupons")
 public class CouponController {
-	private CouponService couponService;
+    private CouponService couponService;
 
-	@Autowired
-	public CouponController(CouponService couponService) {
-		this.couponService = couponService;
-	}
+    @Autowired
+    public CouponController(CouponService couponService) {
+        this.couponService = couponService;
+    }
 
-	@GetMapping
-	public void activateCoupon(@RequestParam String coupon) {
-		couponService.activateCoupon(coupon);
-	}
+    @GetMapping
+    public void activateCoupon(@RequestParam String coupon) {
+        couponService.activateCoupon(coupon);
+    }
 
-	@GetMapping("/share-link")
-	public ShareLink getShareLinkByCustomerIdAndOrderId(@RequestParam Integer customerId,
-														@RequestParam Integer orderId){
-		return couponService.getShareLink(customerId, orderId);
-	}
+    @GetMapping("/share-link")
+    public ShareLink getShareLinkByCustomerIdAndOrderId(@RequestParam Integer customerId,
+                                                        @RequestParam Integer orderId) {
+        return couponService.getShareLink(customerId, orderId);
+    }
 }

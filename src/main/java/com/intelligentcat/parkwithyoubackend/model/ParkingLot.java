@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ParkingLot {
-	Integer id;
-	String name;
-	String address;
-	Double unitPrice;
-	Integer capacity;
-	Integer availableCount;
-	String region;
+    Integer id;
+    String name;
+    String address;
+    Double unitPrice;
+    Integer capacity;
+    Integer availableCount;
+    String region;
 }

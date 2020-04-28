@@ -15,7 +15,7 @@ public class ParkingPlace {
     String status;
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("{id: %d, name: %s, parking_lot_id: %d, status: %s}", id, name, parkingLotId, status);
     }
 }

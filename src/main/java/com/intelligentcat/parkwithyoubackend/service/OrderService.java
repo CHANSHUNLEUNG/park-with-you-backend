@@ -22,7 +22,7 @@ public class OrderService {
                         ParkingLotRepository parkingLotRepository,
                         ParkingPlaceRepository parkingPlaceRepository,
                         OrderRepository orderRepository,
-                        CouponRepository couponRepository){
+                        CouponRepository couponRepository) {
         this.customerRepository = customerRepository;
         this.parkingLotRepository = parkingLotRepository;
         this.parkingPlaceRepository = parkingPlaceRepository;
@@ -30,7 +30,7 @@ public class OrderService {
         this.couponRepository = couponRepository;
     }
 
-    public OrderResponse addNewBooking(Integer parkingLotId, OrderRequest orderRequest){
+    public OrderResponse addNewBooking(Integer parkingLotId, OrderRequest orderRequest) {
         String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
 
         ParkingPlace nextAvailablePlace = parkingPlaceRepository.getNextAvailableParkingPlace(parkingLotId);
@@ -39,7 +39,7 @@ public class OrderService {
 
         parkingPlaceRepository.markParkingPlaceAsUnavailable(parkingLotId, nextAvailablePlace.getId());
 
-        OrderResponse orderResponse =  orderRepository.createNewOrder(now, nextAvailablePlace, orderRequest);
+        OrderResponse orderResponse = orderRepository.createNewOrder(now, nextAvailablePlace, orderRequest);
 
         couponRepository.createNewCoupon(orderRequest.getCustomerId(), orderResponse.getOrderId());
 
@@ -56,7 +56,7 @@ public class OrderService {
     }
 
 
-	public List<OrderDetail> getOrderListByCustomer(Integer customerId) {
+    public List<OrderDetail> getOrderListByCustomer(Integer customerId) {
         return orderRepository.findJointDetailByCustomerId(customerId);
-	}
+    }
 }

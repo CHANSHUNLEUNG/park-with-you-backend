@@ -30,7 +30,7 @@ public class CustomerService {
             throw new InvalidAccountException();
         }
         Customer targetCustomer = customers.get(0);
-        if(!targetCustomer.getPassword().equals(password)){
+        if (!targetCustomer.getPassword().equals(password)) {
             throw new IncorrectPasswordException();
         }
         targetCustomer.setPassword(HIDDEN_PASSWORD);
@@ -51,7 +51,7 @@ public class CustomerService {
         String newUserName = customer.getName();
         String newPassword = customer.getPassword();
         String newBankAccount = customer.getBankAccount();
-        if(newUserName != null && newPassword != null && newBankAccount != null) {
+        if (newUserName != null && newPassword != null && newBankAccount != null) {
             return customerRepository.createNewUser(newUserName, newPassword, newBankAccount);
 
         }
@@ -62,7 +62,7 @@ public class CustomerService {
         String updatedUserName = customer.getName();
         String updatedPassword = customer.getPassword();
         String updatedBankAccount = customer.getBankAccount();
-        if(updatedUserName != null && updatedPassword != null && updatedBankAccount != null) {
+        if (updatedUserName != null && updatedPassword != null && updatedBankAccount != null) {
             return customerRepository.updateUserAccount(id, updatedUserName, updatedPassword, updatedBankAccount);
 
         }

@@ -14,25 +14,25 @@ import java.util.List;
 @RestController
 @RequestMapping("/parking-lots")
 public class ParkingLotController {
-	private ParkingLotService parkingLotService;
+    private ParkingLotService parkingLotService;
 
-	@Autowired
-	public ParkingLotController(ParkingLotService parkingLotService) {
-		this.parkingLotService = parkingLotService;
-	}
+    @Autowired
+    public ParkingLotController(ParkingLotService parkingLotService) {
+        this.parkingLotService = parkingLotService;
+    }
 
-	@GetMapping
-	@ResponseStatus(HttpStatus.OK)
-	public List<ParkingLot> getAllParkingLots(@RequestParam(required = false) String region) {
-		if (region != null) {
-			return parkingLotService.getParkingLotsByRegion(region);
-		}
-		return parkingLotService.getAllParkingLots();
-	}
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<ParkingLot> getAllParkingLots(@RequestParam(required = false) String region) {
+        if (region != null) {
+            return parkingLotService.getParkingLotsByRegion(region);
+        }
+        return parkingLotService.getAllParkingLots();
+    }
 
-	@PostMapping("/{parkingLotId}/booking")
-	public OrderResponse addNewBooking(@PathVariable("parkingLotId") Integer parkingLotId,
-									   @RequestBody OrderRequest orderRequest) {
-		return parkingLotService.addNewBooking(parkingLotId, orderRequest);
-	}
+    @PostMapping("/{parkingLotId}/booking")
+    public OrderResponse addNewBooking(@PathVariable("parkingLotId") Integer parkingLotId,
+                                       @RequestBody OrderRequest orderRequest) {
+        return parkingLotService.addNewBooking(parkingLotId, orderRequest);
+    }
 }

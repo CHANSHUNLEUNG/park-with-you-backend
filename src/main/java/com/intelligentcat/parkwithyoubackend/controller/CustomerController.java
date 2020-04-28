@@ -27,24 +27,24 @@ public class CustomerController {
     }
 
     @GetMapping
-    public List<String> returnAllCustomers(){
+    public List<String> returnAllCustomers() {
         return customerService.getAll();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Object> createAccount(@RequestBody Customer customer){
+    public ResponseEntity<Object> createAccount(@RequestBody Customer customer) {
         boolean isCreateSuccess = customerService.createUserAccount(customer);
-        if(!isCreateSuccess){
+        if (!isCreateSuccess) {
             return new ResponseEntity<>("Error, cannot create account.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateInfo(@PathVariable("id") Integer id, @RequestBody Customer customer){
-        boolean isUpdatedSuccess = customerService.updateUserAccountInfo(id,customer);
-        if(!isUpdatedSuccess) {
+    public ResponseEntity<Object> updateInfo(@PathVariable("id") Integer id, @RequestBody Customer customer) {
+        boolean isUpdatedSuccess = customerService.updateUserAccountInfo(id, customer);
+        if (!isUpdatedSuccess) {
             return new ResponseEntity<>("Error, cannot update user information.", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(customer, HttpStatus.OK);

@@ -50,16 +50,16 @@ public class CustomerRepository {
 
             jdbcTemplate.update(
                     new PreparedStatementCreator() {
-                    @Override
-                    public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                        PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-                        ps.setString(1, newUserName);
-                        ps.setString(2, newPassword);
-                        ps.setString(3, newBankAccount);
-                        return ps;
-                    }
-                },
-                keyHolder
+                        @Override
+                        public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                            ps.setString(1, newUserName);
+                            ps.setString(2, newPassword);
+                            ps.setString(3, newBankAccount);
+                            return ps;
+                        }
+                    },
+                    keyHolder
 
 
             );
@@ -70,7 +70,7 @@ public class CustomerRepository {
         return true;
     }
 
-    public boolean updateUserAccount(Integer id ,String updatedUserName, String updatedPassword, String updatedBankAccount) {
+    public boolean updateUserAccount(Integer id, String updatedUserName, String updatedPassword, String updatedBankAccount) {
         final String sql = "update customer set name = ?, password = ?, bank_account = ? where id = ?;";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -84,7 +84,7 @@ public class CustomerRepository {
                             ps.setString(1, updatedUserName);
                             ps.setString(2, updatedPassword);
                             ps.setString(3, updatedBankAccount);
-                            ps.setInt(4,id);
+                            ps.setInt(4, id);
                             return ps;
                         }
                     },
