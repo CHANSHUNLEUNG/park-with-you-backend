@@ -19,5 +19,5 @@ public class OrderDetail {
     String parkingPlaceName;
     String startParkingTime;
     Integer duration;
-    Integer couponId;
+    Double discountAmount;
 }
