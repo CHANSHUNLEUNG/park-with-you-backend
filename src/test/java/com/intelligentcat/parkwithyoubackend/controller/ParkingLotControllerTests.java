@@ -1,5 +1,7 @@
 package com.intelligentcat.parkwithyoubackend.controller;
 
+import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
+import com.intelligentcat.parkwithyoubackend.model.OrderResponse;
 import com.intelligentcat.parkwithyoubackend.model.ParkingLot;
 import com.intelligentcat.parkwithyoubackend.service.ParkingLotService;
 import io.restassured.http.ContentType;
@@ -10,6 +12,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -19,15 +22,17 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ParkingLotControllerTests {
-	@Autowired
 	ParkingLotService parkingLotService;
 
 	@Before
 	public void setUp() {
+		parkingLotService = Mockito.mock(ParkingLotService.class);
 		RestAssuredMockMvc.standaloneSetup(new ParkingLotController(parkingLotService));
 	}
 
@@ -75,5 +80,17 @@ public class ParkingLotControllerTests {
 		System.out.println(parkingLots);
 		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
 		Assert.assertEquals(1, parkingLots.size());
+	}
+
+	@Test
+	public void should_get_receipt_when_sent_booking_request() {
+		doReturn(new OrderResponse()).when(parkingLotService).addNewBooking(any(), any());
+		OrderRequest orderRequest;
+		orderRequest = new OrderRequest(1, "2020-04-26 23:00:00", 3600);
+		MockMvcResponse response = given().contentType(ContentType.JSON)
+				.body(orderRequest)
+				.when()
+				.post("/parking-lots/3/booking");
+		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
 	}
 }

@@ -28,14 +28,5 @@ public class OrderControllerTests {
         RestAssuredMockMvc.standaloneSetup(new OrderController(orderService));
     }
 
-    @Test
-    public void should_get_receipt_when_sent_booking_request() {
-        OrderRequest orderRequest;
-        orderRequest = new OrderRequest(1, "2020-04-26 23:00:00", 3600);
-        MockMvcResponse response = given().contentType(ContentType.JSON)
-                .body(orderRequest)
-                .when()
-                .post("/parking-lots/1/booking");
-        Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-    }
+
 }
