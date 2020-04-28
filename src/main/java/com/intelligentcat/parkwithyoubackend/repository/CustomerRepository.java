@@ -1,9 +1,6 @@
 package com.intelligentcat.parkwithyoubackend.repository;
 
 import com.intelligentcat.parkwithyoubackend.model.Customer;
-import com.intelligentcat.parkwithyoubackend.model.OrderRequest;
-import com.intelligentcat.parkwithyoubackend.model.OrderResponse;
-import com.intelligentcat.parkwithyoubackend.model.ParkingPlace;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,15 +8,12 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-
 import java.sql.*;
 import java.util.List;
 
 @Repository
 public class CustomerRepository {
     private JdbcTemplate jdbcTemplate;
-
-
 
     private class CustomerRowMapper implements RowMapper<Customer> {
         @Override
