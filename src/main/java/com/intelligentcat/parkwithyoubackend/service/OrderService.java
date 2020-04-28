@@ -1,10 +1,7 @@
 package com.intelligentcat.parkwithyoubackend.service;
 
 import com.intelligentcat.parkwithyoubackend.model.*;
-import com.intelligentcat.parkwithyoubackend.repository.CustomerRepository;
-import com.intelligentcat.parkwithyoubackend.repository.OrderRepository;
-import com.intelligentcat.parkwithyoubackend.repository.ParkingLotRepository;
-import com.intelligentcat.parkwithyoubackend.repository.ParkingPlaceRepository;
+import com.intelligentcat.parkwithyoubackend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +15,19 @@ public class OrderService {
     private ParkingLotRepository parkingLotRepository;
     private ParkingPlaceRepository parkingPlaceRepository;
     private OrderRepository orderRepository;
+    private CouponRepository couponRepository;
 
     @Autowired
     public OrderService(CustomerRepository customerRepository,
                         ParkingLotRepository parkingLotRepository,
                         ParkingPlaceRepository parkingPlaceRepository,
-                        OrderRepository orderRepository){
+                        OrderRepository orderRepository,
+                        CouponRepository couponRepository){
         this.customerRepository = customerRepository;
         this.parkingLotRepository = parkingLotRepository;
         this.parkingPlaceRepository = parkingPlaceRepository;
         this.orderRepository = orderRepository;
+        this.couponRepository = couponRepository;
     }
 
     public OrderResponse addNewBooking(Integer parkingLotId, OrderRequest orderRequest){
@@ -40,6 +40,8 @@ public class OrderService {
         parkingPlaceRepository.markParkingPlaceAsUnavailable(parkingLotId, nextAvailablePlace.getId());
 
         OrderResponse orderResponse =  orderRepository.createNewOrder(now, nextAvailablePlace, orderRequest);
+
+        couponRepository.createNewCoupon(orderRequest.getCustomerId(), orderResponse.getOrderId());
 
         return orderResponse;
     }
