@@ -13,7 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -88,9 +87,9 @@ public class ParkingLotControllerTests {
 		OrderRequest orderRequest;
 		orderRequest = new OrderRequest(1, "2020-04-26 23:00:00", 3600);
 		MockMvcResponse response = given().contentType(ContentType.JSON)
-				.body(orderRequest)
-				.when()
-				.post("/parking-lots/3/booking");
+						.body(orderRequest)
+						.when()
+						.post("/parking-lots/3/booking");
 		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
 	}
 }
