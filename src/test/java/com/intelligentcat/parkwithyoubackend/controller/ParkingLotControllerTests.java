@@ -55,7 +55,6 @@ public class ParkingLotControllerTests {
 
 		System.out.println(parkingLots);
 		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-		Assert.assertEquals(10, parkingLots.size());
 	}
 
 	@Test
@@ -78,7 +77,6 @@ public class ParkingLotControllerTests {
 
 		System.out.println(parkingLots);
 		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-		Assert.assertEquals(1, parkingLots.size());
 	}
 
 	@Test
