@@ -41,7 +41,7 @@ public class CustomerController {
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/update")
+    @PutMapping("/{id}")
     public ResponseEntity<Object> updateInfo(@PathVariable("id") Integer id, @RequestBody Customer customer){
         boolean isUpdatedSuccess = customerService.updateUserAccountInfo(id,customer);
         if(!isUpdatedSuccess) {
