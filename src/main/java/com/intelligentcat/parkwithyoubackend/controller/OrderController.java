@@ -23,7 +23,7 @@ public class OrderController {
     }
 
 
-    @PostMapping("/parking-orders/{orderId}")
+    @PostMapping("/parking-lots/{orderId}")
     public Order extendBooking(@PathVariable("orderId") Integer orderId,
                                @RequestBody ExtendOrderRequest extendOrderRequest) {
         return orderService.extendCurrentBooking(orderId, extendOrderRequest);
