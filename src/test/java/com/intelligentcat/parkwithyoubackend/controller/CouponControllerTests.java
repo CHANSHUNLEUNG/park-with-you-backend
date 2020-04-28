@@ -44,11 +44,13 @@ public class CouponControllerTests {
 				.get("/coupons/share-link?customerId=1&orderId=1");
 		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
 	}
+
+	@Test
 	public void should_return_200_when_activate_coupon() {
 		MockMvcResponse response = given()
 						.contentType(ContentType.JSON)
 						.when()
-						.get("/coupons?coupon=MQ==");
+						.get("/coupons?coupon=MTAwMA==");
 
 		Assert.assertEquals(HttpStatus.OK.value(), response.getStatusCode());
 	}
