@@ -1,11 +1,13 @@
 package com.intelligentcat.parkwithyoubackend.repository;
 
+import com.intelligentcat.parkwithyoubackend.exception.NoAvailablePlaceException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class CouponRepository {
@@ -31,5 +33,20 @@ public class CouponRepository {
 			}
 		}) > 0;
 
+	}
+
+	public String getCouponId(Integer customerId, Integer orderId) {
+		final String sql = "select id from `coupon` where customer_id = ? and gen_order_id = ?;";
+
+		List<String> couponIds = jdbcTemplate.query(
+				sql,
+				new Object[]{customerId, orderId},
+				(response, rowNumber) ->{
+					return response.getString("id");
+				});
+		if(couponIds.size()==0){
+			throw new NoAvailablePlaceException();
+		}
+		return couponIds.get(0);
 	}
 }

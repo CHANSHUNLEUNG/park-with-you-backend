@@ -1,5 +1,6 @@
 package com.intelligentcat.parkwithyoubackend.controller;
 
+import com.intelligentcat.parkwithyoubackend.model.ShareLink;
 import com.intelligentcat.parkwithyoubackend.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,5 +19,11 @@ public class CouponController {
 	@PostMapping
 	public void activateCoupon(@RequestParam Integer couponid) {
 		couponService.activateCoupon(couponid);
+	}
+
+	@GetMapping("/{customerId}/order/{orderId}")
+	public ShareLink getShareLinkByCustomerIdAndOrderId(@PathVariable Integer customerId,
+														@PathVariable Integer orderId){
+		return couponService.getShareLink(customerId, orderId);
 	}
 }
