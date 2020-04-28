@@ -16,8 +16,9 @@ public class CouponService {
 	public CouponService(CouponRepository couponRepository) {
 		this.couponRepository = couponRepository;
 	}
-	public void activateCoupon(Integer couponid) {
-		couponRepository.activateCoupon(couponid);
+	public void activateCoupon(String coupon) {
+		Integer couponId = Integer.valueOf(new String(Base64.getDecoder().decode(coupon)));
+		couponRepository.activateCoupon(couponId);
 	}
 
     public ShareLink getShareLink(Integer customerId, Integer orderId) {

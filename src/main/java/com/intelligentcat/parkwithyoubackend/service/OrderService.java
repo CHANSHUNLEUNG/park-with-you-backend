@@ -43,6 +43,8 @@ public class OrderService {
 
         couponRepository.createNewCoupon(orderRequest.getCustomerId(), orderResponse.getOrderId());
 
+        couponRepository.useActiveCoupon(orderResponse.getOrderId(), orderResponse.getCustomerId());
+
         return orderResponse;
     }
 

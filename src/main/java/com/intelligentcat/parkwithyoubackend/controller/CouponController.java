@@ -20,8 +20,7 @@ public class CouponController {
 
 	@GetMapping
 	public void activateCoupon(@RequestParam String coupon) {
-		Integer couponId = Integer.valueOf(new String(Base64.getDecoder().decode(coupon)));
-		couponService.activateCoupon(couponId);
+		couponService.activateCoupon(coupon);
 	}
 
 	@GetMapping("/share-link")
