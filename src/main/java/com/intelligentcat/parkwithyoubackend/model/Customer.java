@@ -12,4 +12,5 @@ public class Customer {
     String name;
     String password;
     String BankAccount;
+    Integer availableCouponCount;
 }

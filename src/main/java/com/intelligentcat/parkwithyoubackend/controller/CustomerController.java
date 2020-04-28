@@ -23,7 +23,7 @@ public class CustomerController {
     @PostMapping("/{userName}/login")
     public Customer login(@PathVariable("userName") String userName,
                           @RequestBody CustomerRequest customerRequest) {
-        return customerService.verifyUserNamePassword(userName, customerRequest.getPassword());
+        return customerService.login(userName, customerRequest.getPassword());
     }
 
     @GetMapping
