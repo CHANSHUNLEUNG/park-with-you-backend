@@ -30,7 +30,7 @@ public class ParkingLotController {
 		return parkingLotService.getAllParkingLots();
 	}
 
-	@PostMapping("/parking-lots/{parkingLotId}/booking")
+	@PostMapping("/{parkingLotId}/booking")
 	public OrderResponse addNewBooking(@PathVariable("parkingLotId") Integer parkingLotId,
 									   @RequestBody OrderRequest orderRequest) {
 		return parkingLotService.addNewBooking(parkingLotId, orderRequest);
