@@ -17,9 +17,9 @@ public class CouponRepository {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	public void activateCoupon(Integer couponid) {
+	public void activateCoupon(Integer couponId) {
 		final String sql = "update coupon set status=\"active\" where id=?;";
-		jdbcTemplate.update(sql, new Object[]{couponid});
+		jdbcTemplate.update(sql, new Object[]{couponId});
 	}
 
 	public boolean createNewCoupon(Integer customerId, Integer genOrderId) {
@@ -39,12 +39,12 @@ public class CouponRepository {
 		final String sql = "select id from `coupon` where customer_id = ? and gen_order_id = ?;";
 
 		List<String> couponIds = jdbcTemplate.query(
-				sql,
-				new Object[]{customerId, orderId},
-				(response, rowNumber) ->{
-					return response.getString("id");
-				});
-		if(couponIds.size()==0){
+						sql,
+						new Object[]{customerId, orderId},
+						(response, rowNumber) -> {
+							return response.getString("id");
+						});
+		if (couponIds.size() == 0) {
 			throw new NoAvailablePlaceException();
 		}
 		return couponIds.get(0);
@@ -62,4 +62,9 @@ public class CouponRepository {
 		);
 		return availableCouponCount;
 	}
+	public void useActiveCoupon(Integer orderId, Integer customerId) {
+		final String sql = "update `coupon` set status =\"used\", used_order_id = ? where id = ( SELECT id FROM ( ( SELECT id FROM `coupon` WHERE STATUS = 'active' AND customer_id = ? AND used_order_id IS NULL ORDER BY id limit 1 ) ) TEMP );";
+		jdbcTemplate.update(sql, new Object[]{orderId, customerId});
+	}
+
 }

@@ -100,13 +100,13 @@ public class OrderRepository {
             orderDetail.setParkingPlaceName(resultSet.getString("parking_place_name"));
             orderDetail.setStartParkingTime(resultSet.getString("start_parking_time"));
             orderDetail.setDuration(resultSet.getInt("parking_duration"));
-            orderDetail.setCouponId(resultSet.getInt("coupon_id"));
+            orderDetail.setDiscountAmount(resultSet.getDouble("discount_amount"));
             return orderDetail;
         }
     }
 
     public List<OrderDetail> findJointDetailByCustomerId(Integer customerId) {
-        final String sql = "SELECT o.order_time `order_time` ,o.id `order_id` ,o.customer_id `customer_id` ,pl.id `parking_lot_id` ,pl.name `parking_lot_name` ,pl.address `address` ,pl.unit_price `unit_price` ,pp.id `parking_place_id` ,pp.name `parking_place_name` ,o.start_parking_time `start_parking_time` ,o.parking_duration `parking_duration` ,c.id `coupon_id` FROM `order` o INNER JOIN `parking_place` pp ON pp.id = o.parking_place_id INNER JOIN `parking_lot` pl ON pl.id = pp.parking_lot_id LEFT JOIN ( SELECT * FROM `coupon` WHERE customer_id = ? AND STATUS = 'used' ) c ON c.used_order_id = o.id WHERE o.customer_id = ? ORDER BY o.start_parking_time DESC ,o.order_time DESC;";
+        final String sql = "SELECT o.order_time `order_time` ,o.id `order_id` ,o.customer_id `customer_id` ,pl.id `parking_lot_id` ,pl.name `parking_lot_name` ,pl.address `address` ,pl.unit_price `unit_price` ,pp.id `parking_place_id` ,pp.name `parking_place_name` ,o.start_parking_time `start_parking_time` ,o.parking_duration `parking_duration` ,c.discount_amount `discount_amount` FROM `order` o INNER JOIN `parking_place` pp ON pp.id = o.parking_place_id INNER JOIN `parking_lot` pl ON pl.id = pp.parking_lot_id LEFT JOIN ( SELECT * FROM `coupon` WHERE customer_id = ? AND STATUS = 'used' ) c ON c.used_order_id = o.id WHERE o.customer_id = ? ORDER BY o.start_parking_time DESC ,o.order_time DESC;";
         return jdbcTemplate.query(sql, new Object[]{customerId, customerId}, new OrderDetailRowMapper());
     }
 }
