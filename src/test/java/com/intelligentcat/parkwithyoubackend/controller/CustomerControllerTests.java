@@ -39,9 +39,9 @@ public class CustomerControllerTests {
         doReturn(new Customer()).when(customerService).login(any(), any());
         MockMvcResponse response = given()
                 .contentType(ContentType.JSON)
-                .body(new CustomerRequest("4f31fa50e5bd5ff45684e560fc24aeee527a43739ab611c49c51098a33e2b469"))
+                .body(new CustomerRequest("Matt", "4f31fa50e5bd5ff45684e560fc24aeee527a43739ab611c49c51098a33e2b469"))
                 .when()
-                .post("/customers/Matt/login");
+                .post("/customers/login");
 
         Customer customer = response
                 .getBody()

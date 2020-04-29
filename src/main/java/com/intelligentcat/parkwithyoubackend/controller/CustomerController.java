@@ -20,10 +20,9 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping("/{userName}/login")
-    public Customer login(@PathVariable("userName") String userName,
-                          @RequestBody CustomerRequest customerRequest) {
-        return customerService.login(userName, customerRequest.getPassword());
+    @PostMapping("/login")
+    public Customer login(@RequestBody CustomerRequest customerRequest) {
+        return customerService.login(customerRequest.getUserName(), customerRequest.getPassword());
     }
 
     @GetMapping
