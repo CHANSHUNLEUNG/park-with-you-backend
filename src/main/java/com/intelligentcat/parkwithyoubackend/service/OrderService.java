@@ -37,7 +37,7 @@ public class OrderService {
 
         parkingLotRepository.deductAvailableCountById(parkingLotId);
 
-        parkingPlaceRepository.markParkingPlaceAsUnavailable(parkingLotId, nextAvailablePlace.getId());
+        parkingPlaceRepository.markParkingPlaceAsUnavailable(nextAvailablePlace.getId(), parkingLotId);
 
         OrderResponse orderResponse = orderRepository.createNewOrder(now, nextAvailablePlace, orderRequest);
 
