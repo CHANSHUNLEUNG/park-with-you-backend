@@ -1,55 +1,25 @@
 package com.intelligentcat.parkwithyoubackend.repository;
 
 import com.intelligentcat.parkwithyoubackend.model.ParkingLot;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public class ParkingLotRepository {
-    private JdbcTemplate jdbcTemplate;
+public interface ParkingLotRepository extends JpaRepository<ParkingLot, Integer> {
+	@Query(
+					value = "select * from parking_lot where region=?",
+					nativeQuery = true)
+	List<ParkingLot> findByRegion(String region);
 
-
-    private class ParkingLotRowMapper implements RowMapper<ParkingLot> {
-        @Override
-        public ParkingLot mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
-            ParkingLot parkingLot = new ParkingLot();
-            parkingLot.setId(resultSet.getInt("id"));
-            parkingLot.setName(resultSet.getString("name"));
-            parkingLot.setAddress(resultSet.getString("address"));
-            parkingLot.setUnitPrice(resultSet.getDouble("unit_price"));
-            parkingLot.setCapacity(resultSet.getInt("capacity"));
-            parkingLot.setAvailableCount(resultSet.getInt("available_count"));
-            parkingLot.setRegion(resultSet.getString("region"));
-            return parkingLot;
-        }
-    }
-
-    public ParkingLotRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
-    public List<ParkingLot> findAll() {
-        final String sql = "select * from parking_lot;";
-        return jdbcTemplate.query(sql, new ParkingLotRowMapper());
-    }
-
-    public List<ParkingLot> findByRegion(String region) {
-        final String sql = "select * from parking_lot where region=?;";
-        return jdbcTemplate.query(sql, new Object[]{region}, new ParkingLotRowMapper());
-    }
-
-    public boolean deductAvailableCountById(Integer parkingLotId) {
-        final String sql = "update parking_lot set available_count=available_count-1 where id=?;";
-        try {
-            jdbcTemplate.update(sql, new Object[]{parkingLotId});
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
+	@Modifying
+	@Transactional
+	@Query(
+					value = "update parking_lot set available_count=available_count-1 where id=?",
+					nativeQuery = true)
+	void deductAvailableCountById(Integer parkingLotId);
 }
